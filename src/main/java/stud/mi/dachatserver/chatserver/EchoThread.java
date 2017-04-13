@@ -10,21 +10,25 @@ public class EchoThread {
 
 	public EchoThread(final Socket clientSocket) {
 		if (clientSocket != null) {
-			new Thread(() -> {
-				try {
-					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-					String inputLine;
-					while ((inputLine = in.readLine()) != null) {
-						out.println(inputLine);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+						BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+						String inputLine;
+						while ((inputLine = in.readLine()) != null) {
+							out.println(inputLine);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
-			}).start();
+			});
 		} else {
 			System.err.println("No Socket");
 		}
+
 	}
 
 }
