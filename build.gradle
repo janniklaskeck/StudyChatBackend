@@ -26,9 +26,6 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 ext {
     slf4jVersion = "1.7.21"
     log4jVersion = "2.7"
