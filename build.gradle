@@ -29,6 +29,7 @@ repositories {
 ext {
     slf4jVersion = "1.7.21"
     log4jVersion = "2.7"
+    gsonVersion = "2.8.0"
 }
 
 dependencies {
@@ -38,5 +39,7 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion"
     compile "org.apache.logging.log4j:log4j-jul:$log4jVersion"*/
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'com.cloudant', name: 'cloudant-client', version: '2.8.0'
+    compile "com.google.code.gson:gson:$gsonVersion"
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

@@ -5,3 +5,5 @@ applications:
    path: build/libs/DaChatServer-0.1.0.war
    memory: 256M
    instances: 1
+   services:
+   -  Cloudant NoSQL DB-9j

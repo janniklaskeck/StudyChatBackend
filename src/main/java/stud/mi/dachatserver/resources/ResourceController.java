@@ -8,26 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import stud.mi.dachatserver.dal.MessageDatabase;
+
 @RestController
 @RequestMapping("/")
 public class ResourceController {
 
-	private static String tempMessages = "";
-
 	@PostMapping("/message")
 	@ResponseStatus(HttpStatus.OK)
 	public String addMessage(@RequestBody String input) {
-		addMessageToDB(input);
+		MessageDatabase.addMessageToDB(input);
 		return input;
 	}
 
-	private static void addMessageToDB(final String message) {
-		tempMessages += message + System.lineSeparator();
-	}
-
-	@GetMapping("/messages")
+	@GetMapping("/message")
 	@ResponseStatus(HttpStatus.OK)
 	public String getMessages() {
-		return tempMessages;
+		return MessageDatabase.getMessageFromDB("message_id");
 	}
+
 }
