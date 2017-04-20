@@ -1,6 +1,6 @@
 package stud.mi.dachatserver.dto;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class Message {
 
@@ -9,7 +9,7 @@ public class Message {
 	private String datePosted;
 	private String content = "";
 
-	public Message(final String message, final ZonedDateTime date) {
+	public Message(final String message, final Date date) {
 		this.content = message;
 		this.datePosted = date.toString();
 		this._id = Integer.toString(message.hashCode());

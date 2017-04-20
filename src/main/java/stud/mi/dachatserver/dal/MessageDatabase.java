@@ -1,6 +1,6 @@
 package stud.mi.dachatserver.dal;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
@@ -18,7 +18,7 @@ public class MessageDatabase {
 		if (msgList == null) {
 			msgList = new MessageList();
 		}
-		msgList.messages.add(new Message(message, ZonedDateTime.now()));
+		msgList.messages.add(new Message(message, new Date()));
 		db.save(msgList);
 	}
 
