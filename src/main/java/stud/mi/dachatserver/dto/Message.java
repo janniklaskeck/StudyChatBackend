@@ -2,9 +2,11 @@ package stud.mi.dachatserver.dto;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class Message {
 
-	private String _id = "message_id";
+	public String _id = "message_id";
 	private String _rev = null;
 	private String datePosted;
 	private String content = "";
@@ -29,17 +31,7 @@ public class Message {
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("{ id: ");
-		builder.append(_id);
-		builder.append(",\nrev: ");
-		builder.append(_rev);
-		builder.append(",\ndatePosted: ");
-		builder.append(datePosted);
-		builder.append(",\nmessage: ");
-		builder.append(content);
-		builder.append("\n}");
-		return builder.toString();
+		return new Gson().toJson(this);
 	}
 
 }

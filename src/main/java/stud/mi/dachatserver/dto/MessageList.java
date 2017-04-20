@@ -1,34 +1,29 @@
 package stud.mi.dachatserver.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 public class MessageList {
 
 	private String _id = "message_list";
-	private String _rev;
+	private String _rev = null;
 
-	public List<Message> messages = new ArrayList<>();
+	public JsonArray messages = new JsonArray();
 
-	@Override
-	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append("{ id: ");
-		builder.append(_id);
-		builder.append(",\nrev: ");
-		builder.append(_rev);
-		builder.append(",\nmsgList: ");
-		builder.append("  [\n");
-		for (int i = 0; i < messages.size(); i++) {
-			builder.append(messages.get(i));
-			if (i < messages.size() - 1) {
-				builder.append(",");
-			}
-		}
-		builder.append("  ]");
-		builder.append("\n}");
-		return builder.toString();
+	public void addMessage(final Message msg) {
+		msg._id = Integer.toString(messages.size());
+		messages.add(new Gson().toJsonTree(msg));
 	}
 
+	public String getId() {
+		return this._id;
+	}
+
+	public String getRev() {
+		return this._rev;
+	}
+
+	public void removeRev() {
+		this._rev = null;
+	}
 }
