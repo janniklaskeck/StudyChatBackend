@@ -13,15 +13,22 @@ public class MessageList {
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
-		builder.append("[\n");
+
+		builder.append("{ id: ");
+		builder.append(_id);
+		builder.append(",\nrev: ");
+		builder.append(_rev);
+		builder.append(",\nmsgList: ");
+		builder.append("  [\n");
 		for (int i = 0; i < messages.size(); i++) {
 			builder.append(messages.get(i));
 			if (i < messages.size() - 1) {
 				builder.append(",");
 			}
 		}
-		builder.append("]");
-		return "";
+		builder.append("  ]");
+		builder.append("\n}");
+		return builder.toString();
 	}
 
 }
