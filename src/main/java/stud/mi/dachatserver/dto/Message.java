@@ -1,5 +1,8 @@
 package stud.mi.dachatserver.dto;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.google.gson.Gson;
@@ -21,7 +24,9 @@ public class Message {
 	public Message(final String user, final String message) {
 		this.user = user;
 		this.content = message;
-		this.datePosted = new Date().toString();
+		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		final Date now = Calendar.getInstance().getTime();
+		this.datePosted = df.format(now);
 		this._id = Integer.toString(message.hashCode());
 	}
 

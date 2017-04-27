@@ -49,8 +49,13 @@ public class MessageDatabase {
 
 	public static String getMessageFromDB(final String key) {
 		final Database db = getDB();
-		final MessageList msgList = db.find(MessageList.class, key);
-		return GSON.toJson(msgList);
+		try {
+			final MessageList msgList = db.find(MessageList.class, key);
+			return GSON.toJson(msgList);
+		} catch (NoDocumentException e) {
+			LOGGER.error("Could not find Document in DB", e);
+			return "{}";
+		}
 	}
 
 	public static void removeDB() {
@@ -69,7 +74,7 @@ public class MessageDatabase {
 	public static Database getDB() {
 		// final String user = "f00c8b1b-c0ad-4bc6-a302-c18eeef61249-bluemix";
 		// final String pass =
-		// "70c7e3c7c66570fb0f8afcc76b88b5816e9feb671612e59d6e9d4b55767510fa";
+		// "";
 		// final String account =
 		// "f00c8b1b-c0ad-4bc6-a302-c18eeef61249-bluemix";
 		final String user = EnvUtils.getDbUser();
