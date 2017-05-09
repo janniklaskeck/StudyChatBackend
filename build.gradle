@@ -13,12 +13,12 @@ apply plugin: 'org.springframework.boot'
 apply plugin: "war"
 
 jar {
-    baseName = 'DaChatServer'
+    baseName = 'StudyChatBackend'
     version =  '0.1.0'
 }
 
 war {
-	baseName = "DaChatServer"
+	baseName = "StudyChatBackend"
 	version = "0.1.0"
 }
 
