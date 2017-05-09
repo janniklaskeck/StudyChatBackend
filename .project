@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>DaChatServer</name>
-	<comment></comment>
+	<name>StudyChatBackend</name>
+	<comment>Project StudyChatBackend created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
