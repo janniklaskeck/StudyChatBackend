@@ -6,4 +6,4 @@ applications:
    memory: 256M
    instances: 1
    services:
-   -  Cloudant NoSQL DB-9j
+   -  Cloudant NoSQL ChatDB
