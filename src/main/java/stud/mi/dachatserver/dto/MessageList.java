@@ -1,29 +1,36 @@
 package stud.mi.dachatserver.dto;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
-public class MessageList {
+public class MessageList
+{
 
-	private String _id = "message_list";
-	private String _rev = null;
+    private static final JsonParser PARSER = new JsonParser();
 
-	public JsonArray messages = new JsonArray();
+    private String _id = "message_list";
+    private String _rev = null;
 
-	public void addMessage(final Message msg) {
-		msg._id = Integer.toString(messages.size());
-		messages.add(new Gson().toJsonTree(msg));
-	}
+    private final JsonArray messages = new JsonArray();
 
-	public String getId() {
-		return this._id;
-	}
+    public void addMessage(final Message msg)
+    {
+        msg.setID(Integer.toString(this.messages.size()));
+        this.messages.add(PARSER.parse(msg.toJson()));
+    }
 
-	public String getRev() {
-		return this._rev;
-	}
+    public String getId()
+    {
+        return this._id;
+    }
 
-	public void removeRev() {
-		this._rev = null;
-	}
+    public String getRev()
+    {
+        return this._rev;
+    }
+
+    public void removeRev()
+    {
+        this._rev = null;
+    }
 }

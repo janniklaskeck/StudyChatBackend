@@ -1,61 +1,98 @@
 package stud.mi.dachatserver.dto;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import com.google.gson.Gson;
+public class Message
+{
+    // public Message(final String user, final String message)
+    // {
+    // this.user = user;
+    // this.content = message;
+    // final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    // final Date now = Calendar.getInstance().getTime();
+    // this.datePosted = df.format(now);
+    // this._id = Integer.toString(message.hashCode());
+    // }
 
-public class Message {
+    private static final JsonParser JSON_PARSER = new JsonParser();
+    private static final String REV = "_rev";
+    private static final String ID = "_id";
 
-	public String _id = "message_id";
-	private String _rev = null;
-	private String user = "anon";
-	private String datePosted;
-	private String content = "";
+    private JsonObject jsonData;
 
-	public Message(final String message) {
-		this.content = message;
-		this.datePosted = new Date().toString();
-		this._id = Integer.toString(message.hashCode());
-	}
+    public Message(final String json)
+    {
+        this.jsonData = JSON_PARSER.parse(json).getAsJsonObject();
+        this.addMissingFields();
+    }
 
-	public Message(final String user, final String message) {
-		this.user = user;
-		this.content = message;
-		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		final Date now = Calendar.getInstance().getTime();
-		this.datePosted = df.format(now);
-		this._id = Integer.toString(message.hashCode());
-	}
+    public Message(final JsonObject json)
+    {
+        this.jsonData = json;
+        this.addMissingFields();
+    }
 
-	public Message(final String user, final String message, final Date date) {
-		this.user = user;
-		this.content = message;
-		this.datePosted = date.toString();
-		this._id = Integer.toString(message.hashCode());
-	}
+    private void addMissingFields()
+    {
+        if (this.jsonData.get(REV) == null)
+        {
+            this.jsonData.addProperty(REV, "");
+        }
+        if (this.jsonData.get(ID) == null)
+        {
+            this.jsonData.addProperty(ID, "0");
+        }
+    }
 
-	public String getDatePosted() {
-		return this.datePosted;
-	}
+    public void setID(final String newId)
+    {
+        this.jsonData.addProperty(ID, newId);
+    }
 
-	public String getMessage() {
-		return this.content;
-	}
+    public int getVersion()
+    {
+        return this.jsonData.get("version").getAsInt();
+    }
 
-	public String getRev() {
-		return this._rev;
-	}
+    public String getType()
+    {
+        return this.jsonData.get("type").getAsString();
+    }
 
-	public String getUser() {
-		return this.user;
-	}
+    public Long getUserID()
+    {
+        return this.getContent().get("userID").getAsLong();
+    }
 
-	@Override
-	public String toString() {
-		return new Gson().toJson(this);
-	}
+    public String getUserName()
+    {
+        return this.getContent().get("userName").getAsString();
+    }
 
+    public String getMessage()
+    {
+        return this.getContent().get("message").getAsString();
+    }
+
+    public String getChannelName()
+    {
+        return this.getContent().get("channelName").getAsString();
+    }
+
+    public JsonObject getContent()
+    {
+        return this.jsonData.get("content").getAsJsonObject();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "";
+    }
+
+    public String toJson()
+    {
+        return this.jsonData.toString();
+    }
 }

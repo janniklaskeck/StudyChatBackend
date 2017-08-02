@@ -2,6 +2,7 @@ package stud.mi.dachatserver.resources;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,26 +15,30 @@ import stud.mi.dachatserver.dal.MessageDatabase;
 import stud.mi.dachatserver.dto.MessageList;
 
 @RestController
-@RequestMapping("/")
-public class ResourceController {
+@RequestMapping("/history")
+public class ResourceController
+{
 
-	@PostMapping("/message")
-	@ResponseStatus(HttpStatus.OK)
-	public String addMessage(@RequestBody String input) {
-		final JsonObject jo = MessageDatabase.addMessageToDB(input);
-		return jo.toString();
-	}
+    @PostMapping("/channel/{channelName}")
+    @ResponseStatus(HttpStatus.OK)
+    public String addMessage(@RequestBody final String input, @PathVariable final String channelName)
+    {
+        final JsonObject jo = MessageDatabase.addChannelMessageToDB(channelName, input);
+        return jo.toString();
+    }
 
-	@GetMapping("/message")
-	@ResponseStatus(HttpStatus.OK)
-	public String getMessages() {
-		return MessageDatabase.getMessageFromDB(new MessageList().getId());
-	}
+    @GetMapping("/channel/{channelName}")
+    @ResponseStatus(HttpStatus.OK)
+    public String getChannelMessages(@PathVariable final String channelName)
+    {
+        return MessageDatabase.getMessageFromDB(channelName, new MessageList().getId());
+    }
 
-	@PostMapping("/removeall")
-	@ResponseStatus(HttpStatus.OK)
-	public void removeDB() {
-		MessageDatabase.removeDB();
-	}
+    @PostMapping("/removeall/{channelName}")
+    @ResponseStatus(HttpStatus.OK)
+    public void removeDB(@PathVariable final String channelName)
+    {
+        MessageDatabase.removeDB(channelName);
+    }
 
 }

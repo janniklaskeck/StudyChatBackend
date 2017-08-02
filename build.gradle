@@ -27,10 +27,10 @@ repositories {
 }
 
 ext {
-    slf4jVersion = "1.7.21"
-    log4jVersion = "2.7"
-    gsonVersion = "2.8.0"
-    cloudantVersion = "2.8.0"
+    slf4jVersion = "1.7.25"
+    log4jVersion = "2.8.2"
+    gsonVersion = "2.8.1"
+    cloudantVersion = "2.9.0"
 }
 
 dependencies {
